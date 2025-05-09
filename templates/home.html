@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Home - PageStream{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="display-4">Welcome to PageStream</h1>
+    <p class="lead">Your secure user management system</p>
+    
+    {% if session.get('user_id') %}
+        <div class="mt-4">
+            <h2>Welcome back!</h2>
+            {% if session.get('is_admin') %}
+                <div class="mt-3">
+                    <a href="/admin/users" class="btn btn-primary">Manage Users</a>
+                </div>
+            {% endif %}
+            <div class="mt-3">
+                <form action="/api/account/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete your account?');">
+                    <button type="submit" class="btn btn-danger">Delete Account</button>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <div class="mt-4">
+            <a href="/login" class="btn btn-primary me-2">Login</a>
+            <a href="/register" class="btn btn-outline-primary">Register</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %} 
